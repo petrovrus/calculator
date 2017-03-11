@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "calculator10/CalculatorBrain.swift"
-            timestampString = "509389867.404922"
+            timestampString = "510936494.376614"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
             landmarkName = "performOperation(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "calculator10/ViewController.swift"
-            timestampString = "509478965.655751"
+            timestampString = "510176855.296919"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "46"
-            endingLineNumber = "46"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
             landmarkName = "performOperation(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "calculator10/CalculatorBrain.swift"
-            timestampString = "509389039.319085"
+            timestampString = "510936494.376614"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "44"
-            endingLineNumber = "44"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
             landmarkName = "performOperation(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -74,13 +74,29 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "calculator10/CalculatorBrain.swift"
-            timestampString = "509389042.878172"
+            timestampString = "510936494.376614"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
             landmarkName = "performOperation(_:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "calculator10/CalculatorBrain.swift"
+            timestampString = "510936494.376614"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
+            landmarkName = "CalculatorBrain"
+            landmarkType = "14">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -12,6 +12,8 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var display: UILabel!
     
+    @IBOutlet weak var descriptionLabel: UILabel!
+    
     private var userIsInTheMiddleOfTyping = false
     
     @IBAction func touchDigit(_ sender: UIButton) {
@@ -51,6 +53,11 @@ class ViewController: UIViewController {
         }
         if let result = brain.result {
             displayValue = result
+        }
+        if let descr = brain.description {
+            descriptionLabel.text = descr + brain.suffixOfDescription
+        } else {
+            descriptionLabel.text = " "
         }
     }
 
