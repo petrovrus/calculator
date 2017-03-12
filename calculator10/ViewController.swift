@@ -9,7 +9,7 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
     @IBOutlet weak var display: UILabel!
     
     @IBOutlet weak var descriptionLabel: UILabel!
@@ -20,15 +20,35 @@ class ViewController: UIViewController {
         let digit = sender.currentTitle!
         if userIsInTheMiddleOfTyping {
             let textCurrentlyInDisplay = display.text!
-            display.text = textCurrentlyInDisplay + digit
-        } else {
-            userIsInTheMiddleOfTyping = true
-            if digit == "." {
-                display.text = "0."
-            } else {
-                display.text = digit
-                userIsInTheMiddleOfTyping = digit == "0" ? false : true //deleting insignificant zeros
+            if (digit != ".") || !(textCurrentlyInDisplay.contains(".")) {
+                display.text = textCurrentlyInDisplay + digit
             }
+        } else {
+            display.text = digit
+            userIsInTheMiddleOfTyping = true
+        }
+    }
+    
+    @IBAction func clearAll(_ sender: UIButton) {
+        brain.superClear()
+        displayValue = 0
+        descriptionLabel.text = " "
+        userIsInTheMiddleOfTyping = false
+    }
+    
+    @IBAction func clearNumber(_ sender: UIButton) {
+        if userIsInTheMiddleOfTyping {
+            displayValue = 0
+            userIsInTheMiddleOfTyping = false
+        }
+    }
+    @IBAction func removeLastDigit(_ sender: UIButton) {
+        if userIsInTheMiddleOfTyping && !display.text!.isEmpty {
+            display.text = String(display.text!.characters.dropLast())
+        }
+        if display.text!.isEmpty {
+            displayValue = 0.0
+            userIsInTheMiddleOfTyping = false
         }
     }
     
@@ -54,12 +74,8 @@ class ViewController: UIViewController {
         if let result = brain.result {
             displayValue = result
         }
-        if let descr = brain.description {
-            descriptionLabel.text = descr + brain.suffixOfDescription
-        } else {
-            descriptionLabel.text = " "
-        }
+        descriptionLabel.text = brain.description + (brain.resultIsPending ? "…" : "=")
     }
-
+    
 }
 
