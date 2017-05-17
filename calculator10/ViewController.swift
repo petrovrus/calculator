@@ -12,7 +12,9 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var display: UILabel!
     
-    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var history: UILabel!
+    
+    @IBOutlet weak var displayM: UILabel!
     
     private var userIsInTheMiddleOfTyping = false
     
@@ -28,20 +30,42 @@ class ViewController: UIViewController {
             userIsInTheMiddleOfTyping = true
         }
     }
-    
-    @IBAction func clearAll(_ sender: UIButton) {
-        brain.superClear()
-        displayValue = 0
-        descriptionLabel.text = " "
+    @IBAction func setM(_ sender: UIButton) {
         userIsInTheMiddleOfTyping = false
+        let symbol = "M"
+        
+        variableValues[symbol] = displayValue
+        displayResult = brain.evaluate(using: variableValues)
     }
     
-    @IBAction func clearNumber(_ sender: UIButton) {
+    @IBAction func pushM(_ sender: UIButton) {
+        let symbol = "M"
+        brain.setOperand(named: symbol)
+        displayResult = brain.evaluate(using: variableValues)
+    }
+    
+    @IBAction func clear(_ sender: UIButton) {
+        brain.clear()
+        variableValues.removeAll()
+        displayResult = brain.evaluate()
+    }
+    
+    @IBAction func backspace(_ sender: UIButton) {
         if userIsInTheMiddleOfTyping {
-            displayValue = 0
-            userIsInTheMiddleOfTyping = false
+            guard !display.text!.isEmpty else { return }
+            display.text = String(display.text!.characters.dropLast())
+            if display.text!.isEmpty {
+                displayValue = 0
+                userIsInTheMiddleOfTyping = false
+                displayResult = brain.evaluate(using: variableValues)
+            }
+        } else {
+            brain.undo()
+            displayResult = brain.evaluate(using: variableValues)
         }
     }
+
+    
     @IBAction func removeLastDigit(_ sender: UIButton) {
         if userIsInTheMiddleOfTyping && !display.text!.isEmpty {
             display.text = String(display.text!.characters.dropLast())
@@ -61,21 +85,38 @@ class ViewController: UIViewController {
         }
     }
     
+    private var displayResult: (result: Double?, isPending: Bool, description: String, error: String?) = (nil, false, " ", nil) {
+        didSet {
+            switch displayResult {
+            case (nil, _, " ", nil):
+                displayValue = 0
+            case (let result, _, _, nil):
+                displayValue = result
+            case (_, _, _, let error):
+                display.text = error!
+            }
+            history.text = displayResult.description != " " ? displayResult.description + (displayResult.isPending ? " …" : " =") : " "
+            displayM.text = brain.formatter.string(from: NSNumber(value: variableValues["M"] ?? 0))
+            
+        }
+    }
+    
     private var brain = CalculatorBrain()
+    private var variableValues = [String: Double]()
     
     @IBAction func performOperation(_ sender: UIButton) {
-        if userIsInTheMiddleOfTyping, let value = displayValue {
-            brain.setOperand(value)
+        if userIsInTheMiddleOfTyping {
+            if let value = displayValue {
+                brain.setOperand(value)
+            }
             userIsInTheMiddleOfTyping = false
         }
         if let mathematicalSymbol = sender.currentTitle {
             brain.performOperation(mathematicalSymbol)
         }
-        if let result = brain.result {
-            displayValue = result
-        }
-        descriptionLabel.text = brain.description + (brain.resultIsPending ? "…" : "=")
+        displayResult = brain.evaluate(using: variableValues)
     }
+    
     
 }
 
